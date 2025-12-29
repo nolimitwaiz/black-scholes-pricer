@@ -49,9 +49,8 @@ dev = [
 [project.scripts]
 options-toolkit = "interfaces.cli:cli"
 
-[tool.setuptools.packages.find]
-where = ["."]
-include = ["src*", "interfaces*"]
+[tool.setuptools]
+packages = ["src", "src.core", "src.solvers", "src.diagnostics", "src.utils", "interfaces"]
 
 [tool.black]
 line-length = 100
