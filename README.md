@@ -1,6 +1,6 @@
-# Options Pricing Toolkit
+# Black-Scholes Pricer
 
-A production-grade Black-Scholes options pricing library with implied volatility solver, Greeks calculation, and comprehensive arbitrage diagnostics.
+A production-grade Black-Scholes options pricer with implied volatility solver, Greeks calculation, and comprehensive arbitrage diagnostics.
 
 ## Features
 
@@ -14,8 +14,8 @@ A production-grade Black-Scholes options pricing library with implied volatility
 ## Installation
 
 ```bash
-git clone https://github.com/nolimitwaiz/options-pricing-toolkit.git
-cd options-pricing-toolkit
+git clone https://github.com/nolimitwaiz/black-scholes-pricer.git
+cd black-scholes-pricer
 pip install -e .
 ```
 
@@ -83,7 +83,7 @@ pytest tests/unit/test_black_scholes.py -v
 ## Project Structure
 
 ```
-options-pricing-toolkit/
+black-scholes-pricer/
 ├── src/
 │   ├── core/               # Black-Scholes pricing & Greeks
 │   ├── solvers/            # Implied volatility (Newton-Raphson + Brent)

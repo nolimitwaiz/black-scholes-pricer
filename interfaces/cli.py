@@ -17,7 +17,7 @@ from src.solvers.implied_vol import implied_volatility
 @click.group()
 @click.version_option(version="1.0.0")
 def cli():
-    """Options Pricing Toolkit - Professional Black-Scholes implementation."""
+    """Black-Scholes Pricer - Professional Black-Scholes implementation."""
     pass
 
 

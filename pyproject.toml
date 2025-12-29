@@ -3,9 +3,9 @@ requires = ["setuptools>=61.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "options-pricing-toolkit"
+name = "black-scholes-pricer"
 version = "1.0.0"
-description = "Production-grade Black-Scholes options pricing toolkit with implied volatility solver, Greeks calculation, and market data integration"
+description = "Production-grade Black-Scholes options pricer with implied volatility solver, Greeks calculation, and market data integration"
 readme = "README.md"
 requires-python = ">=3.10"
 license = {text = "MIT"}

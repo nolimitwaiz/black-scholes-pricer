@@ -14,9 +14,9 @@ import plotly.graph_objects as go
 from src.core.black_scholes import black_scholes_price, calculate_greeks, delta, gamma, vega
 from src.solvers.implied_vol import implied_volatility
 
-st.set_page_config(page_title="Options Pricing Toolkit", layout="wide")
+st.set_page_config(page_title="Black-Scholes Pricer", layout="wide")
 
-st.title("Options Pricing Toolkit")
+st.title("Black-Scholes Pricer")
 st.markdown("Professional Black-Scholes options pricing and analysis")
 
 # Sidebar parameters
