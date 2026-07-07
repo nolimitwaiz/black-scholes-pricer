@@ -18,7 +18,7 @@ import streamlit as st
 import numpy as np
 import pandas as pd
 import plotly.graph_objects as go
-from src.core.black_scholes import black_scholes_price, calculate_greeks, delta, gamma, vega
+from src.core.black_scholes import black_scholes_price, calculate_greeks, delta, gamma
 from src.solvers.implied_vol import implied_volatility
 
 st.set_page_config(page_title="Black-Scholes Pricer", layout="wide")
@@ -56,9 +56,9 @@ with tab1:
             "Value": [
                 f"{greeks_vals.delta:.6f}",
                 f"{greeks_vals.gamma:.6f}",
-                f"{greeks_vals.vega:.6f}",
+                f"{greeks_vals.vega / 100.0:.6f}",
                 f"{greeks_vals.theta:.6f}",
-                f"{greeks_vals.rho:.6f}"
+                f"{greeks_vals.rho / 100.0:.6f}"
             ],
             "Description": [
                 "Price change per $1 spot move",

@@ -1,6 +1,6 @@
 # Black-Scholes Pricer
 
-A production-grade Black-Scholes options pricer with implied volatility solver, Greeks calculation, and comprehensive arbitrage diagnostics.
+A tested Black-Scholes options pricer with an implied-volatility solver (Newton-Raphson with Brent fallback), analytic Greeks, and arbitrage diagnostics.
 
 ## Features
 
@@ -9,7 +9,7 @@ A production-grade Black-Scholes options pricer with implied volatility solver, 
 - **Implied Volatility**: Newton-Raphson with Brent fallback for robust convergence
 - **Arbitrage Diagnostics**: Put-call parity, price bounds, strike monotonicity, butterfly spreads
 - **CLI & Web UI**: Professional command-line and Streamlit interfaces
-- **Comprehensive Tests**: 91+ tests with 85%+ coverage
+- **Tests**: 93 tests (known-value, finite-difference, round-trip, and unit-convention checks)
 
 ## Installation
 
@@ -92,25 +92,8 @@ black-scholes-pricer/
 ├── interfaces/
 │   ├── cli.py              # Command-line interface
 │   └── streamlit_app.py    # Web UI
-├── tests/                  # Comprehensive test suite
-└── docs/                   # Mathematical documentation
+└── tests/                  # Test suite
 ```
-
-## Implementation Roadmap
-
-**Phase 1** (Core): Black-Scholes pricing + Greeks + tests
-**Phase 2** (Solver): Implied volatility with dual-method approach
-**Phase 3** (Validation): Arbitrage diagnostics suite
-**Phase 4** (Interfaces): CLI and Streamlit UI
-**Phase 5** (Polish): Documentation and optimization
-
-## Mathematical Background
-
-See `docs/MATHEMATICS.md` for:
-- Black-Scholes PDE derivation
-- Greeks formulas and interpretations
-- Implied volatility solver theory
-- No-arbitrage conditions
 
 ## License
 

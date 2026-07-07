@@ -10,7 +10,6 @@ This module validates:
 """
 
 import pytest
-import math
 from src.core.black_scholes import black_scholes_call, black_scholes_put
 from src.solvers.implied_vol import (
     implied_volatility,
@@ -131,8 +130,7 @@ def test_roundtrip_long_expiry():
 def test_call_price_below_intrinsic_raises():
     """Call price below intrinsic value should raise ValueError."""
     S, K, T, r, q = 110.0, 100.0, 1.0, 0.05, 0.0
-    intrinsic = S - K  # ~10 for this case
-    market_price = 5.0  # Below intrinsic
+    market_price = 5.0  # Below intrinsic value (S - K = 10)
 
     with pytest.raises(ValueError, match="Arbitrage violation"):
         implied_volatility(market_price, S, K, T, r, q, option_type="call")
@@ -150,8 +148,7 @@ def test_call_price_above_spot_raises():
 def test_put_price_above_strike_raises():
     """Put price above strike present value should raise ValueError."""
     S, K, T, r, q = 100.0, 100.0, 1.0, 0.05, 0.0
-    pv_strike = K * math.exp(-r * T)  # ~95.12
-    market_price = 100.0  # Above PV(strike)
+    market_price = 100.0  # Above PV(strike) = K*exp(-rT) ~= 95.12
 
     with pytest.raises(ValueError, match="Arbitrage violation"):
         implied_volatility(market_price, S, K, T, r, q, option_type="put")

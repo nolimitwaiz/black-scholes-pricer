@@ -6,8 +6,6 @@ the Black-Scholes equation for volatility given a market price.
 The method uses vega (∂V/∂σ) as the derivative for fast convergence.
 """
 
-import math
-from typing import Optional
 
 from src.core.black_scholes import black_scholes_price, vega
 from src.utils.constants import (

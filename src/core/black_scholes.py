@@ -18,7 +18,6 @@ References:
 """
 
 import math
-from typing import Optional
 
 from src.core.distributions import normal_cdf, normal_pdf
 from src.utils.constants import EPSILON_TIME, EPSILON_VOL, MAX_STANDARD_DEVIATIONS
@@ -400,20 +399,22 @@ def vega(S: float, K: float, T: float, r: float, sigma: float, q: float = 0.0) -
     Calculate option vega (∂V/∂σ).
 
     Vega measures the sensitivity of the option price to changes in
-    volatility. Same for calls and puts. Reported per 1% change in volatility.
+    volatility. Same for calls and puts. Returned per UNIT change in
+    volatility (∂V/∂σ); multiply by 0.01 for a one-percentage-point move.
 
     Args:
         S, K, T, r, sigma, q: Standard Black-Scholes parameters
 
     Returns:
-        Vega value (per 1% volatility change)
+        Vega value per unit change in volatility
 
     Formula:
         ν = S · e^(-qT) · √T · φ(d1)
 
     Interpretation:
-        Vega of 0.35 means: for 1% increase in volatility (e.g., 20% → 21%),
-        option price increases by $0.35.
+        Vega of 37.5 means: a one-percentage-point rise in volatility
+        (e.g., 20% → 21%, i.e. 0.01 units) raises the option price by
+        ≈ 37.5 × 0.01 = $0.375.
 
     Notes:
         Vega is highest for at-the-money options and decreases for deep
@@ -430,7 +431,7 @@ def vega(S: float, K: float, T: float, r: float, sigma: float, q: float = 0.0) -
 
     discount_factor = math.exp(-q * T)
 
-    # Return vega per 1% change in volatility
+    # ∂V/∂σ per unit of volatility (a 1-percentage-point move is 0.01 units)
     return S * discount_factor * math.sqrt(T) * pdf_d1
 
 
@@ -514,7 +515,8 @@ def rho(
     option_type: OptionType = "call",
 ) -> float:
     """
-    Calculate option rho (∂V/∂r), reported per 1% change in interest rate.
+    Calculate option rho (∂V/∂r), returned per UNIT change in the interest
+    rate; multiply by 0.01 for a one-percentage-point move.
 
     Rho measures sensitivity to changes in the risk-free rate.
 
@@ -523,15 +525,16 @@ def rho(
         option_type: "call" or "put"
 
     Returns:
-        Rho value per 1% change in rate
+        Rho value per unit change in the interest rate
 
     Formulas:
         Call rho: ρ_c = K·T·e^(-rT)·N(d2)
         Put rho:  ρ_p = -K·T·e^(-rT)·N(-d2)
 
     Interpretation:
-        Rho of 0.45 means: for 1% increase in rates (e.g., 5% → 6%),
-        option price increases by $0.45.
+        Call rho of 53.2 means: a one-percentage-point rise in rates
+        (e.g., 5% → 6%, i.e. 0.01 units) raises the option price by
+        ≈ 53.2 × 0.01 = $0.532.
 
     Notes:
         Typically, call rho is positive (higher rates → higher call value)

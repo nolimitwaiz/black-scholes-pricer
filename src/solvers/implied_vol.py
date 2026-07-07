@@ -9,7 +9,6 @@ convergence behavior.
 import math
 from typing import Optional
 
-from src.core.black_scholes import black_scholes_price
 from src.solvers.newton_raphson import newton_raphson_iv
 from src.solvers.brent import brent_iv
 from src.utils.constants import IV_INITIAL_GUESS
@@ -205,7 +204,6 @@ def implied_volatility(
         - Auto mode (method="auto") tries Newton-Raphson first, falls back to Brent
         - Newton-Raphson typically converges in 3-5 iterations for normal cases
         - Brent is slower (~10-20 iterations) but guaranteed to converge
-        - Success rate: ~98% with auto mode in production
     """
     # Step 1: Validate arbitrage bounds
     violation = validate_arbitrage_bounds(market_price, S, K, T, r, q, option_type)

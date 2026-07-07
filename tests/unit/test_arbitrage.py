@@ -1,6 +1,5 @@
 """Unit tests for arbitrage diagnostics."""
 
-import pytest
 from src.diagnostics.arbitrage import (
     check_price_bounds,
     check_put_call_parity,

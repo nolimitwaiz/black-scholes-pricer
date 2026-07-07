@@ -3,7 +3,6 @@ Pytest configuration and shared fixtures.
 """
 
 import pytest
-import math
 
 
 @pytest.fixture

@@ -85,7 +85,7 @@ def brent_iv(
             message=f"Converged with price error {price_error:.2e}",
         )
 
-    except ValueError as e:
+    except ValueError:
         # This occurs if objective function doesn't bracket a root
         # Check values at bounds to provide useful error message
         obj_lower = objective(vol_lower)

@@ -9,7 +9,6 @@ This CLI provides access to:
 """
 
 import click
-from datetime import datetime, timedelta
 from src.core.black_scholes import black_scholes_price, calculate_greeks
 from src.solvers.implied_vol import implied_volatility
 
@@ -50,9 +49,9 @@ def greeks(spot, strike, time, rate, vol, div, type):
     click.echo(f"\nGreeks for {type.capitalize()} Option:")
     click.echo(f"  Delta:  {greeks_values.delta:>10.6f}")
     click.echo(f"  Gamma:  {greeks_values.gamma:>10.6f}")
-    click.echo(f"  Vega:   {greeks_values.vega:>10.6f}")
+    click.echo(f"  Vega:   {greeks_values.vega:>10.6f} (per unit σ; {greeks_values.vega / 100.0:.6f} per 1% vol)")
     click.echo(f"  Theta:  {greeks_values.theta:>10.6f} (per day)")
-    click.echo(f"  Rho:    {greeks_values.rho:>10.6f}")
+    click.echo(f"  Rho:    {greeks_values.rho:>10.6f} (per unit r; {greeks_values.rho / 100.0:.6f} per 1% rate)")
 
 
 @cli.command()

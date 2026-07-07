@@ -381,11 +381,9 @@ def test_vega_finite_difference(standard_params):
     price_up = black_scholes_call(**params_up)
     price_down = black_scholes_call(**params_down)
 
-    # Vega reported per 1% change, so multiply by 100
+    # The central difference estimates ∂V/∂σ per UNIT of volatility, which
+    # is exactly the convention vega() returns — no scaling needed.
     vega_numerical = (price_up - price_down) / (2 * h)
-
-    # Vega analytical is per 1% (0.01) change, numerical is per h change
-    # Vega = ∂V/∂σ, but we report per 1% so we don't need scaling here
     assert abs(vega_analytical - vega_numerical) < 0.01
 
 
@@ -423,9 +421,8 @@ def test_rho_finite_difference(standard_params):
     price_up = black_scholes_call(**params_up)
     price_down = black_scholes_call(**params_down)
 
-    # Rho is reported per 1% change, so h = 0.01
-    # ∂V/∂r ≈ (V(r+0.01) - V(r-0.01)) / (2*0.01) = (price_up - price_down) / 0.02
-    # This gives change per 1% rate change, matching rho definition
+    # The central difference estimates ∂V/∂r per UNIT of rate, which is
+    # exactly the convention rho() returns — no scaling needed.
     rho_numerical = (price_up - price_down) / (2 * h)
 
     assert abs(rho_analytical - rho_numerical) < 0.5
@@ -503,3 +500,27 @@ def test_put_price_increases_with_strike():
     base_price = black_scholes_put(S=100, K=100, T=1.0, r=0.05, sigma=0.20, q=0.0)
     higher_price = black_scholes_put(S=100, K=105, T=1.0, r=0.05, sigma=0.20, q=0.0)
     assert higher_price > base_price
+
+# ===========================
+# Unit-Convention Pinning Tests
+# ===========================
+
+
+def test_vega_unit_convention_pinned(standard_params):
+    """Pin vega's unit convention numerically: per UNIT of volatility.
+
+    For S=K=100, T=1, r=5%, sigma=20%, q=0: d1 = 0.35 and
+    vega = S * sqrt(T) * phi(d1) = 100 * 0.3752403 = 37.5240.
+    A one-percentage-point vol move (0.01 units) therefore changes the
+    price by ~$0.375 — the per-1% vega is vega / 100.
+    """
+    assert abs(vega(**standard_params) - 37.5240) < 1e-3
+
+
+def test_rho_unit_convention_pinned(standard_params):
+    """Pin rho's unit convention numerically: per UNIT of rate.
+
+    For S=K=100, T=1, r=5%, sigma=20%, q=0: d2 = 0.15 and
+    call rho = K * T * exp(-rT) * N(d2) = 95.1229 * 0.5596177 = 53.2325.
+    """
+    assert abs(rho(**standard_params, option_type="call") - 53.2325) < 1e-3

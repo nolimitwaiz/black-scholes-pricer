@@ -51,9 +51,9 @@ class Greeks:
     Attributes:
         delta: Rate of change of option price with respect to spot price (∂V/∂S)
         gamma: Rate of change of delta with respect to spot price (∂²V/∂S²)
-        vega: Rate of change of option price with respect to volatility (∂V/∂σ), per 1% vol
+        vega: Rate of change of option price with respect to volatility (∂V/∂σ), per unit vol (×0.01 for a 1-pct-point move)
         theta: Rate of change of option price with respect to time (∂V/∂T), per day
-        rho: Rate of change of option price with respect to interest rate (∂V/∂r), per 1% rate
+        rho: Rate of change of option price with respect to interest rate (∂V/∂r), per unit rate (×0.01 for a 1-pct-point move)
     """
     delta: float
     gamma: float
